@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.lms.api.admin.Admin;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
-	Page<Aluno> findAll(Pageable paginacao);
+	Page<Aluno> findAllByAtivoTrue(Pageable paginacao);
 }

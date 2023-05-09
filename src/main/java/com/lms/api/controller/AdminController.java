@@ -44,15 +44,15 @@ public class AdminController {
 	@PutMapping
 	@Transactional
 	public void atualizar(@RequestBody @Valid DadosAtualizacaoAdmin dados) {
-		var medico = repository.getReferenceById(dados.id());
-		medico.atualizarInformacoes(dados);
+		var admin = repository.getReferenceById(dados.id());
+		admin.atualizarInformacoes(dados);
 	}
 	
 	@DeleteMapping("/{id}")
 	@Transactional
 	public void excluir(@PathVariable Long id) {
 		// repository.deleteById(id);
-		var medico = repository.getReferenceById(id);
-		medico.excluir();
+		var admin = repository.getReferenceById(id);
+		admin.excluir();
 	}
 }

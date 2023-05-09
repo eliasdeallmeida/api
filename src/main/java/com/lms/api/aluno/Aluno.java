@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Table(name = "alunos")
-@Entity(name = "alunos")
+@Entity(name = "Aluno")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,8 +25,12 @@ public class Aluno {
 	private String nome;
 	private String matricula;
 	private int codigoArmario;
+	private boolean ativo;
+	
+	public Aluno() {}
 	
 	public Aluno(DadosCadastroAluno dados) {
+		this.ativo = true;
 		this.nome = dados.nome();
 		this.email = dados.email();
 		this.matricula = dados.matricula();
@@ -51,5 +55,9 @@ public class Aluno {
 	
 	public int getCodigoArmario() {
 		return this.codigoArmario;
+	}
+	
+	public void excluir() {
+		this.ativo = false;
 	}
 }
