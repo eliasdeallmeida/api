@@ -21,8 +21,6 @@ public class Admin {
 	private String email;
 	private boolean ativo;
 	
-	public Admin() {}
-	
 	public Admin(DadosCadastroAdmin dados) {
 		this.ativo = true;
 		this.nome = dados.nome();

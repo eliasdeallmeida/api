@@ -27,8 +27,6 @@ public class Aluno {
 	private int codigoArmario;
 	private boolean ativo;
 	
-	public Aluno() {}
-	
 	public Aluno(DadosCadastroAluno dados) {
 		this.ativo = true;
 		this.nome = dados.nome();
