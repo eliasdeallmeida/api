@@ -14,8 +14,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "armarios")
 @Entity(name = "Armario")
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 
 public class Armario {
@@ -33,13 +31,16 @@ public class Armario {
 
 	@Column(name = "numeroJanela")
 	private int numeroJanela;
-	
+
 	@Column(name = "codigoArmario")
 	private String codigoArmario;
-	
+
 	private boolean ocupado;
 	private boolean ativo;
 	private static int quantidadeTotalArmarios = 0;
+
+	public Armario() {
+	}
 
 	public Armario(DadosCadastroArmario dados, int qtdArmario) {
 		cadastrar(dados, qtdArmario);
@@ -81,5 +82,9 @@ public class Armario {
 		}
 
 		return charTipo + charNumero + charJanela;
+	}
+
+	public void excluir() {
+		this.ativo = false;
 	}
 }

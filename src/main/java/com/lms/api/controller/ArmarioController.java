@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +28,10 @@ public class ArmarioController {
 
 	@PostMapping
 	@Transactional
-	public void cadastrar(@RequestBody DadosCadastroArmario dados) {
-		Armario[] armario = new Armario[dados.quantidadeArmario()];
+	public void cadastrar(@RequestBody @valid DadosCadastroArmario dados) {
 
 		for (int i = 1; i <= dados.quantidadeArmario(); i++) {
-			repository.save(armario[i] = new Armario(dados, i));
+			repository.save(new Armario(dados, i));
 		}
 	}
 
@@ -39,4 +40,10 @@ public class ArmarioController {
 		return repository.findAllByAtivoTrue(paginacao).map(DadosListagemArmarios::new);
 	}
 
+	@DeleteMapping("{id}")
+	@Transactional
+	public void excluir(@PathVariable  Long id){
+var armario = repository.getReferenceById(id);
+armario.excluir();
+	}
 }
