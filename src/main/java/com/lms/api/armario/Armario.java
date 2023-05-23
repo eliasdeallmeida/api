@@ -37,29 +37,17 @@ public class Armario {
 
 	private boolean ocupado;
 	private boolean ativo;
-	private static int quantidadeTotalArmarios = 0;
 
 	public Armario() {
 	}
 
-	public Armario(DadosCadastroArmario dados, int qtdArmario) {
-		cadastrar(dados, qtdArmario);
-	}
-
-	public void cadastrar(DadosCadastroArmario dados, int qtdArmario) {
-		int tipo = dados.tipoArmario();
-		int quantidadeArmario = dados.quantidadeArmario();
-		int janela = dados.numeroJanela();
-		this.quantidadeTotalArmarios += (quantidadeArmario * janela);
-
-		for (int j = 1; j <= janela; j++) {
-			this.numeroArmario = qtdArmario;
-			this.numeroJanela = j;
-			this.codigoArmario = gerandoCodigo(tipo, qtdArmario, j);
-			this.ativo = true;
-			this.ocupado = false;
-
-		}
+	public Armario(int tipo, int numeroArmario, int numeroJanela) {
+		this.tipoArmario = tipo;
+		this.numeroArmario = numeroArmario;
+		this.numeroJanela = numeroJanela;
+		this.codigoArmario = gerandoCodigo(tipo, numeroArmario, numeroJanela);
+		this.ativo = true;
+		this.ocupado = false;
 	}
 
 	public String gerandoCodigo(int tipo, int numero, int janela) {

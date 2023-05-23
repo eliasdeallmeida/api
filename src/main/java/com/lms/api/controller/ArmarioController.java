@@ -31,7 +31,9 @@ public class ArmarioController {
 	public void cadastrar(@RequestBody @valid DadosCadastroArmario dados) {
 
 		for (int i = 1; i <= dados.quantidadeArmario(); i++) {
-			repository.save(new Armario(dados, i));
+			for (int j = 1; j <= dados.numeroJanela(); j++) {
+				repository.save(new Armario(dados.tipoArmario(), i, j));
+			}
 		}
 	}
 
@@ -42,8 +44,8 @@ public class ArmarioController {
 
 	@DeleteMapping("{id}")
 	@Transactional
-	public void excluir(@PathVariable  Long id){
-var armario = repository.getReferenceById(id);
-armario.excluir();
+	public void excluir(@PathVariable Long id) {
+		var armario = repository.getReferenceById(id);
+		armario.excluir();
 	}
 }
