@@ -18,6 +18,7 @@ import com.lms.api.admin.DadosListagemAdmin;
 import com.lms.api.aluno.Aluno;
 import com.lms.api.aluno.AlunoRepository;
 import com.lms.api.aluno.DadosCadastroAluno;
+import com.lms.api.aluno.DadosDetalhesAluno;
 import com.lms.api.aluno.DadosListagemAluno;
 
 import jakarta.transaction.Transactional;
@@ -44,6 +45,12 @@ public class AlunoController {
 			@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
 		var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
 		return ResponseEntity.ok(page);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity detalharAluno(@PathVariable Long id) {
+		var aluno = repository.getReferenceById(id);
+		return ResponseEntity.ok(new DadosDetalhesAluno(aluno));
 	}
 
 	@DeleteMapping("/{id}")

@@ -14,13 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Admin {
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String email;
 	private boolean ativo;
-	
+
 	public Admin(DadosCadastroAdmin dados) {
 		this.ativo = true;
 		this.nome = dados.nome();
@@ -30,6 +31,7 @@ public class Admin {
 	public Long getId() {
 		return this.id;
 	}
+
 	public String getNome() {
 		return this.nome;
 	}
@@ -39,15 +41,16 @@ public class Admin {
 	}
 
 	public void atualizarInformacoes(@Valid DadosAtualizacaoAdmin dados) {
-		if(dados.email() != null) {
+		if (dados.email() != null) {
 			this.email = dados.email();
 		}
 	}
-	
+
 	public void excluir() {
 		this.ativo = false;
 	}
-	
+
 	// @Enumerated(EnumType.STRING) : para classe enum
-	// @Embedded : para classe endereço (Obs: dentro da classe deve ser adicionada as anotações @Embeddable, @Getter, @NoArgsConstructor, @AllArgsConstructor)
+	// @Embedded : para classe endereço (Obs: dentro da classe deve ser adicionada
+	// as anotações @Embeddable, @Getter, @NoArgsConstructor, @AllArgsConstructor)
 }

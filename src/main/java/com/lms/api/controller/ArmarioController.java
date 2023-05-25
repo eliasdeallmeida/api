@@ -30,7 +30,7 @@ public class ArmarioController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity cadastrar(@RequestBody @valid DadosCadastroArmario dados, UriComponentsBuilder uriBuilder) {
+	public void cadastrar(@RequestBody @valid DadosCadastroArmario dados) {
 
 		for (int i = 1; i <= dados.quantidadeArmario(); i++) {
 			for (int j = 1; j <= dados.numeroJanela(); j++) {
@@ -44,6 +44,12 @@ public class ArmarioController {
 			@PageableDefault(size = 10, sort = { "id" }) Pageable paginacao) {
 		var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemArmarios::new);
 		return ResponseEntity.ok(page);
+	}
+
+	@GetMapping("{id}")
+	public ResponseEntity detalharArmario(@PathVariable Long id) {
+		var armario = repository.getReferenceById(id);
+		return ResponseEntity.ok(new DadosListagemArmarios(armario));
 	}
 
 	@DeleteMapping("{id}")

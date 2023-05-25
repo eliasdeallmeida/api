@@ -19,6 +19,7 @@ import com.lms.api.admin.Admin;
 import com.lms.api.admin.AdminRepository;
 import com.lms.api.admin.DadosAtualizacaoAdmin;
 import com.lms.api.admin.DadosCadastroAdmin;
+import com.lms.api.admin.DadosDetalhesAdmin;
 import com.lms.api.admin.DadosListagemAdmin;
 
 import jakarta.transaction.Transactional;
@@ -47,6 +48,12 @@ public class AdminController {
 		return ResponseEntity.ok(page);
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity detalharAdmin(@PathVariable Long id) {
+		var admin = repository.getReferenceById(id);
+		return ResponseEntity.ok(new DadosDetalhesAdmin(admin));
+	}
+
 	@PutMapping
 	@Transactional
 	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoAdmin dados) {
@@ -58,7 +65,6 @@ public class AdminController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity excluir(@PathVariable Long id) {
-		// repository.deleteById(id);
 		var admin = repository.getReferenceById(id);
 		admin.excluir();
 		return ResponseEntity.noContent().build();
