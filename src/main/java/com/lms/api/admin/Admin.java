@@ -15,11 +15,13 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 public class Admin {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String email;
 	private boolean ativo;
+	private String senha;
 	
 	public Admin() {}
 	
@@ -40,6 +42,12 @@ public class Admin {
 		return this.email;
 	}
 
+	public String getSenha() {
+		return this.senha;
+	}
+
+	
+	
 	public void atualizarInformacoes(@Valid DadosAtualizacaoAdmin dados) {
 		if(dados.email() != null) {
 			this.email = dados.email();

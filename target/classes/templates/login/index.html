@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>teste</title>
+  <link rel="stylesheet" href="src\main\resources\static\css\login-style.css">
+  <script src="https://kit.fontawesome.com/cf6fa412bd.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="buttonsForm">
+      <div class="btnColor"></div>
+      <span id="signIn">Login</span>
+    </div>
+
+    <form id="signin" action="/logar" method="POST">
+      <div>
+      <input type="email" placeholder="Email" id="email" name="email" onchange="onChangeEmail()"/>
+      <i class="fas fa-envelope iEmail"></i>
+      <div class="error" id="email-required-error">Email é obrigatório</div>
+      <div class="error" id="email-invalid-error">Email é inválido</div>
+      </div>
+      <input type="password" placeholder="Senha" id="password" name="senha" onchange="onChangePassword()"/>
+      <i class="fas fa-lock iPassword"></i>
+      <div class="error" id="password-required-error">Senha inválida</div>
+      <button type="button" id="recover-password-button" disabled="true" onclick="recoverPassword()">Esqueci a senha</button>
+      <button type="button" id="login-button" disabled="true" onclick="login()">Fazer login</button>
+
+    </form>
+
+  <script src="index.js"></script>
+  <script src="validations.js"></script>
+</body>
+</html>
