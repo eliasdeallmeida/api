@@ -2,6 +2,7 @@ package com.lms.api.admin;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,17 +10,20 @@ import lombok.NoArgsConstructor;
 
 @Table(name = "admins")
 @Entity(name = "Admin")
-@Getter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Admin {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message = "O campo nome é obrigatório")
+	@Column(name = "nome")
+	@Getter
 	private String nome;
 	private String email;
 	private boolean ativo;
+	private String senha;
 	
 	public Admin() {}
 	
@@ -27,6 +31,7 @@ public class Admin {
 		this.ativo = true;
 		this.nome = dados.nome();
 		this.email = dados.email();
+		this.senha = dados.senha();
 	}
 
 	public Long getId() {

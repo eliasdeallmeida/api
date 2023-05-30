@@ -22,37 +22,37 @@ import com.lms.api.admin.DadosListagemAdmin;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
-@RestController
-@RequestMapping("/admins")
-public class AdminController {
-	
-	@Autowired
-	private AdminRepository repository;
-	
-	@PostMapping
-	@Transactional
-	public void cadastrar(@RequestBody @Valid DadosCadastroAdmin dados) {
-		repository.save(new Admin(dados));
-	}
-	
-	@GetMapping
-	public Page<DadosListagemAdmin> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-		// return repository.findAll().stream().map(DadosListagemAdmin::new).toList();
-		return repository.findAllByAtivoTrue(paginacao).map(DadosListagemAdmin::new);
-	}
-	
-	@PutMapping
-	@Transactional
-	public void atualizar(@RequestBody @Valid DadosAtualizacaoAdmin dados) {
-		var admin = repository.getReferenceById(dados.id());
-		admin.atualizarInformacoes(dados);
-	}
-	
-	@DeleteMapping("/{id}")
-	@Transactional
-	public void excluir(@PathVariable Long id) {
-		// repository.deleteById(id);
-		var admin = repository.getReferenceById(id);
-		admin.excluir();
-	}
-}
+//@RestController
+//@RequestMapping("/admins")
+//public class AdminController {
+//	
+//	@Autowired
+//	private AdminRepository repository;
+//	
+//	@PostMapping
+//	@Transactional
+//	public void cadastrar(@RequestBody @Valid DadosCadastroAdmin dados) {
+//		repository.save(new Admin(dados));
+//	}
+////	
+//	@GetMapping
+//	public Page<DadosListagemAdmin> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+//		// return repository.findAll().stream().map(DadosListagemAdmin::new).toList();
+//		return repository.findAllByAtivoTrue(paginacao).map(DadosListagemAdmin::new);
+//	}
+//	
+//	@PutMapping
+//	@Transactional
+//	public void atualizar(@RequestBody @Valid DadosAtualizacaoAdmin dados) {
+//		var admin = repository.getReferenceById(dados.id());
+//		admin.atualizarInformacoes(dados);
+//	}
+//	
+//	@DeleteMapping("/{id}")
+//	@Transactional
+//	public void excluir(@PathVariable Long id) {
+//		// repository.deleteById(id);
+//		var admin = repository.getReferenceById(id);
+//		admin.excluir();
+//	}
+//}
