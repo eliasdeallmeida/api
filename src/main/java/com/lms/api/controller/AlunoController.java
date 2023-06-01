@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.lms.api.admin.DadosListagemAdmin;
 import com.lms.api.aluno.Aluno;
 import com.lms.api.aluno.AlunoRepository;
 import com.lms.api.aluno.DadosCadastroAluno;

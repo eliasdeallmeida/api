@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.lms.api.armario.Armario;
 import com.lms.api.armario.ArmarioRepository;
@@ -20,6 +19,7 @@ import com.lms.api.armario.DadosCadastroArmario;
 import com.lms.api.armario.DadosListagemArmarios;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/armarios")
@@ -30,7 +30,7 @@ public class ArmarioController {
 
 	@PostMapping
 	@Transactional
-	public void cadastrar(@RequestBody @valid DadosCadastroArmario dados) {
+	public void cadastrar(@RequestBody @Valid DadosCadastroArmario dados) {
 
 		for (int i = 1; i <= dados.quantidadeArmario(); i++) {
 			for (int j = 1; j <= dados.numeroJanela(); j++) {
