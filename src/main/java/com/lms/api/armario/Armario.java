@@ -73,4 +73,32 @@ public class Armario {
 	public void excluir() {
 		this.ativo = false;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public int getTipoArmario() {
+		return tipoArmario;
+	}
+
+	public int getNumeroArmario() {
+		return numeroArmario;
+	}
+
+	public int getNumeroJanela() {
+		return numeroJanela;
+	}
+
+	public String getCodigoArmario() {
+		return codigoArmario;
+	}
+
+	public boolean isOcupado() {
+		return ocupado;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
 }

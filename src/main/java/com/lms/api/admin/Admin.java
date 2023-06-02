@@ -52,6 +52,14 @@ public class Admin {
 		this.ativo = false;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
 	// @Enumerated(EnumType.STRING) : para classe enum
 	// @Embedded : para classe endereço (Obs: dentro da classe deve ser adicionada
 	// as anotações @Embeddable, @Getter, @NoArgsConstructor, @AllArgsConstructor)
