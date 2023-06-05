@@ -21,8 +21,11 @@ public class Admin {
 	@Column(name = "nome")
 	@Getter
 	private String nome;
+	@Getter
 	private String email;
+	@Getter
 	private boolean ativo;
+	@Getter
 	private String senha;
 	
 	public Admin() {}

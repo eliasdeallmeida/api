@@ -48,8 +48,11 @@ public class AdminPageController {
 	
 	@GetMapping("/admins/{id}")
 	public String  search(@PathVariable int id , Model model) {
+		
 		Optional<Admin> admin = repo.findById((long) id);
-		model.addAttribute("administrador", admin.get());
+		try {	
+			model.addAttribute("administrador", admin.get());
+		}catch(Exception e) {return "redirect:/admins";}
 		return "/admins/edit";
 	}
 }
