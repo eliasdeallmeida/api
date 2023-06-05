@@ -6,12 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.*;
 import com.lms.api.admin.Admin;
 import com.lms.api.admin.AdminRepository;
+import com.lms.api.admin.DadosAtualizacaoAdmin;
 import com.lms.api.admin.DadosCadastroAdmin;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Controller
@@ -40,19 +43,32 @@ public class AdminPageController {
 	}
 	
 	@GetMapping("/admins/{id}/delete")
-	public String delete(@PathVariable int id) {
-		repo.deleteById((long) id);
+	public String delete(@PathVariable Long id) {
+		repo.deleteById(id);
+		// var admin = repo.getReferenceById(id);
+		// admin.excluir();
 		return "redirect:/admins";
 	}
 	
-	
 	@GetMapping("/admins/{id}")
-	public String  search(@PathVariable int id , Model model) {
-		
-		Optional<Admin> admin = repo.findById((long) id);
-		try {	
+	public String search(@PathVariable Long id , Model model) {
+		Optional<Admin> admin = repo.findById(id);
+		try {
 			model.addAttribute("administrador", admin.get());
-		}catch(Exception e) {return "redirect:/admins";}
+		} catch(Exception e) {
+			return "redirect:/admins";
+		}
 		return "/admins/edit";
+	}
+
+	@PostMapping("/admins/{id}/edit")
+	@Transactional
+	public String edit(@PathVariable Long id, DadosAtualizacaoAdmin dados) {
+		System.out.println(id + ", " + dados);
+		if (repo.existsById(id)) {
+			var admin = repo.getReferenceById(id);
+			admin.atualizarInformacoes(dados);
+		}
+		return "redirect:/admins";
 	}
 }

@@ -10,22 +10,22 @@ import lombok.NoArgsConstructor;
 
 @Table(name = "admins")
 @Entity(name = "Admin")
-@NoArgsConstructor
+// @NoArgsConstructor
 //@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Admin {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@NotBlank(message = "O campo nome é obrigatório")
-	@Column(name = "nome")
-	@Getter
 	private String nome;
-	@Getter
+
 	private String email;
-	@Getter
+
 	private boolean ativo;
-	@Getter
+
 	private String senha;
 	
 	public Admin() {}
@@ -48,9 +48,15 @@ public class Admin {
 		return this.email;
 	}
 
+	public String getSenha() {
+		return this.senha;
+	}
+
 	public void atualizarInformacoes(@Valid DadosAtualizacaoAdmin dados) {
 		if(dados.email() != null) {
+			this.nome = dados.nome();
 			this.email = dados.email();
+			this.senha = dados.senha();
 		}
 	}
 	

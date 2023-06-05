@@ -1,68 +1,71 @@
 <div th:replace="~{shared/header}"></div>  
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Administradores</h1>
-                    <p class="mb-4">Aqui ira mostra os administrradores do meu sistema</p>
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Administradores</h1>
+        <p class="mb-4">Aqui ira mostra os administrradores do meu sistema</p>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                    	<div class="card-header py-3">
-                         	<a href="admins/add" class="btn btn-primary" style="margin-right: 20px;">Adicionar</a>
-                            <h6 class="m-0 font-weight-bold text-primary" style="display: inline-block;">Lista de Administradores</h6>
-                    	</div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        	<th>Name</th>
-                                            <th>Email</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-											  <tr th:each="administrador : ${administrador}">
-										        <td th:text="${administrador.nome}"></td>
-										        <td th:text="${administrador.email}"></td>
-										        <td><a th:href="@{'/admins/' + ${administrador.id}}" class="btn btn-warning">Editar</a></td>
-<!--										        <td><a href="#" th:onclick="'window.location.href = \'/admins/\' + ${administrador.id} + \'/delete\';" class="btn btn-danger">Excluir</a></td>-->
-										        <td><a href="#" th:onclick="'if(confirm(\'Comfirma ?\')) {window.location.href = \'' + @{/admins/{id}(id=${administrador.id})} + '/delete\'}'" class="btn btn-danger">Excluir</a></td>
-										    </tr>
-										<!--                                        <tr th:each="administrador : ${adiministrador}">-->
-<!--                                            <td th:text="${administrador.nome}"></td>-->
-<!--											<td th:text="${administrador.email}"></td>-->
-<!--                                            <td><a href="#" class="btn btn-warning">Editar</td>-->
-<!--											<td><a href="#" class="btn btn-danger">Excluir</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td>Aldenor Neto tambem</td>-->
-<!--                                            <td>HeatVisio00@gmail.com</td>-->
-<!--                                            <td><a href="#" class="btn btn-warning">Editar</td>-->
-<!--											<td><a href="#" class="btn btn-danger">Excluir</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td>Marcos kaique</td>-->
-<!--                                            <td>MarquitoVaiCorinthians@gmail.com</td>-->
-<!--                                            <td><a href="#" class="btn btn-warning">Editar</td>-->
-<!--											<td><a href="#" class="btn btn-danger">Excluir</td>-->
-<!--                                        </tr>-->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a href="admins/add" class="btn btn-primary" style="margin-right: 20px;">Adicionar</a>
+                <h6 class="m-0 font-weight-bold text-primary" style="display: inline-block;">Lista de Administradores</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr th:each="administrador : ${administrador}">
+                                <td th:text="${administrador.id}"></td>
+                                <td th:text="${administrador.nome}"></td>
+                                <td th:text="${administrador.email}"></td>
+                                <td><a th:href="@{'/admins/' + ${administrador.id}}" class="btn btn-warning">Editar</a></td>
+                                <!-- <td><a href="#" th:onclick="'window.location.href = \'/admins/\' + ${administrador.id} + \'/delete\';" class="btn btn-danger">Excluir</a></td> -->
+                                <td><a href="#" th:onclick="'if(confirm(\'Comfirma ?\')) {window.location.href = \'' + @{/admins/{id}(id=${administrador.id})} + '/delete\'}'" class="btn btn-danger">Excluir</a></td>
+                            </tr>
+                            <!-- 
+                            <tr th:each="administrador : ${adiministrador}">
+                                <td th:text="${administrador.nome}"></td>
+    							<td th:text="${administrador.email}"></td>
+                                <td><a href="#" class="btn btn-warning">Editar</td>
+                                <td><a href="#" class="btn btn-danger">Excluir</td>
+                            </tr>
+                            <tr>
+                                <td>Aldenor Neto tambem</td>
+                                <td>HeatVisio00@gmail.com</td>
+                                <td><a href="#" class="btn btn-warning">Editar</td>
+                                <td><a href="#" class="btn btn-danger">Excluir</td>
+                            </tr>
+                            <tr>
+                                <td>Marcos kaique</td>
+                                <td>MarquitoVaiCorinthians@gmail.com</td>
+                                <td><a href="#" class="btn btn-warning">Editar</td>
+                                <td><a href="#" class="btn btn-danger">Excluir</td>
+                            </tr>
+                             -->
+                        </tbody>
+                    </table>
                 </div>
-                <!-- /.container-fluid -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
 <div th:replace="~{shared/footer}"></div>         
