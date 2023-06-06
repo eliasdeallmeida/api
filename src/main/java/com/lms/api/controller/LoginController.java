@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.lms.api.admin.Admin;
 import com.lms.api.admin.AdminRepository;
+import com.lms.api.usuario.DadosAutenticacao;
 
 import jakarta.transaction.Transactional;
 
@@ -24,8 +25,8 @@ public class LoginController {
 
     @PostMapping("/logar")
     @Transactional
-    public String logar(Model model, Admin adminParam, String lembrar) {
-        Admin adm = this.repo.login(adminParam.getEmail(), adminParam.getSenha());
+    public String logar(Model model, DadosAutenticacao dados, String lembrar) {
+        Admin adm = this.repo.login(dados.login(), dados.senha());
         if(adm != null) {
             return "redirect:/";
         }
