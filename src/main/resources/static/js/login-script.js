@@ -1,79 +1,58 @@
-function onChangeEmail() {
-    toggleButtonsDisable();
-    toggleEmailErrors();
-}
+const formulario = document.querySelector('form')
+const inputLogin = document.querySelector('#email');
+const inputSenha = document.querySelector('#senha');
 
-function onChangePassword() {
-    toggleButtonsDisable();
-    togglePasswordErrors();
-}
-
-function login() {
-    firebase.auth().signInWithEmailAndPassword(
-        form.email().value, form.password().value
-        ).then(response => {
-            window.location.href = "pages/home/home.html";
-    }).catch(error => {
-      alert(getErrorMessage(error));
-    });
-    
-}
-
-function getErrorMessage(error) {
-    if (error.code == "auth/user-not-found") {
-        return "Usuário não encontrado";
+function logar() {
+    const dados = {
+        login: inputLogin.value,
+        senha: inputSenha.value
     }
-    if (error.code == "auth/wrong-password") {
-        return "Senha inválida";
-    }
-    return error.message;
+
+    fetch("http://localhost:8081/login", {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            //Authentication: 'Bearer {token}'
+        },
+        method: "POST",
+        body: JSON.stringify(dados)
+    })
+    .then(response => response.json())
+    //.then(json => console.log(JSON.stringify(json)))
+    .then(data => {
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        console.log(localStorage)
+        window.location.href = '/home/index.html';
+        } else {
+            alert('Login inválido');
+        }
+    })
+    .catch(function (res) { console.log(res) })
+
+    // .then((data) => {
+    //     console.log(data);
+    //     // code here //
+    //     if(data.error) {
+    //         alert("Error Password or Username");
+    //     } else {
+    //         window.open("test.html");
+    //     }
+    //     })
+    //     .catch((err) => {
+    //     console.log(err);
+    // })
+
+    //.then(function (res) { console.log(res) })
 }
 
-function recoverPassword() {
-    firebase.auth().sendPasswordResetEmail(form.email().value).then(() => {
-        alert('Email enviado com sucesso')
-    }).catch(error => {
-        alert(getErrorMessage(error))
-    });
-}
-function toggleEmailErrors() {
-    const email = form.email().value;
-    form.emailRequiredError().style.display = email ? "none" : "block";
-    
-    form.emailInvalidError().style.display = validateEmail(email) ? "none" : "block";
+function limpar() {
+    inputLogin.value = "",
+    inputSenha.value = ""
 }
 
-function togglePasswordErrors() {
-    const password = form.password().value;
-    form.passwordRequiredError().style.display = password ? "none" : "block";
-}
-
-function toggleButtonsDisable() {
-    const emailValid = isEmailValid();
-    form.recoverPasswordButton().disabled = !emailValid;
-
-    const passwordValid = isPasswordValid();
-    form.loginButton().disabled = !emailValid || !passwordValid;
-}
-
-function isEmailValid() {
-    const email = form.email().value;
-    if (!email) {
-        return false;
-    }
-    return validateEmail(email);
-}
-
-function isPasswordValid() {
-    return form.password().value ? true : false;
-}   
-
-const form = {
-    email: () => document.getElementById("email"),
-    emailInvalidError: () => document.getElementById("email-invalid-error"),
-    emailRequiredError: () => document.getElementById("email-required-error"),
-    loginButton: () => document.getElementById("login-button"),
-    password: () => document.getElementById("password"),
-    passwordRequiredError: () => document.getElementById("password-required-error"),
-    recoverPasswordButton: () => document.getElementById("recover-password-button"),
-}
+formulario.addEventListener('submit', function(event) {
+    event.preventDefault();
+    logar();
+    limpar();
+});

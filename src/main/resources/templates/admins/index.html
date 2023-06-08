@@ -33,7 +33,7 @@
                         </tfoot>
                         <tbody>
                             <tr th:each="administrador : ${administrador}">
-                                <td th:text="${administrador.id}"></td>
+                                <!-- <td th:text="${administrador.nome}"></td> -->
                                 <td th:text="${administrador.nome}"></td>
                                 <td th:text="${administrador.email}"></td>
                                 <td><a th:href="@{'/admins/' + ${administrador.id}}" class="btn btn-warning">Editar</a></td>
