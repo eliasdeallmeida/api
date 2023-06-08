@@ -1,0 +1,12 @@
+.status-button {
+    width: 100px;
+    height: 40px;
+  }
+  
+  .status-button.free {
+    background-color: green;
+  }
+  
+  .status-button.occupied {
+    background-color: yellow;
+  }
