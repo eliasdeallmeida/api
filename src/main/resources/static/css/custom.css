@@ -10,3 +10,8 @@
   .status-button.occupied {
     background-color: yellow;
   }
+
+  .custom-search input {
+    max-width: 200px; /* Defina o tamanho desejado para o campo de pesquisa */
+}
+

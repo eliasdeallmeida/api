@@ -1,15 +1,57 @@
 <div th:replace="~{shared/header}"></div>  
     <!-- Begin Page Content -->
     <div class="container-fluid">
+        <!-- ... -->
+        
+        <!-- ... -->
+
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Gerenciar Amarios</h1>
-        <p class="mb-4">Aqui iremos fazer o gerenciamento de armarios</p>
+        <!-- <h1 class="h3 mb-2 text-gray-800">Gerenciar Amarios</h1>
+        <p class="mb-4">Aqui iremos fazer o gerenciamento de armarios</p> -->
 
         <!-- DataTales Example -->
-        <div class="card shadow mb-4">
+        <!-- <div class="card-header py-3">
+            <div class="d-flex align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary order-2">Lista de armários</h6>
+                <div class="input-group custom-search order-1">
+                    <input type="text" class="form-control rounded" placeholder="Pesquisar">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         -->
+
+
+
+
+
+
+
+
+         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary" style="display: inline-block;">Lista de armarios</h6>
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h6 class="m-0 font-weight-bold text-primary">Lista de armários</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="form-inline float-right">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Pesquisar..." aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -30,31 +72,15 @@
                         </tfoot>
                         <tbody>
                             <tr>
-                                <!-- <td th:text="${administrador.nome}"></td> -->
                                 <td>0000232</td>
                                 <td><a href="#"  class="btn status-button btn-success" data-status="livre">livre</a></td>
-                                <td><a href="#" class="btn btn-danger status-button">Excluir</a></td>
-                            </tr>
-                            <!-- 
-                            <tr th:each="administrador : ${adiministrador}">
-                                <td th:text="${administrador.nome}"></td>
-    							<td th:text="${administrador.email}"></td>
-                                <td><a href="#" class="btn btn-warning">Editar</td>
-                                <td><a href="#" class="btn btn-danger">Excluir</td>
+                                <td><a href="#" class="btn btn-danger status-button">Editar</a></td>
                             </tr>
                             <tr>
-                                <td>Aldenor Neto tambem</td>
-                                <td>HeatVisio00@gmail.com</td>
-                                <td><a href="#" class="btn btn-warning">Editar</td>
-                                <td><a href="#" class="btn btn-danger">Excluir</td>
+                                <td>11199999</td>
+                                <td><a href="#"  class="btn status-button btn-success" data-status="livre">livre</a></td>
+                                <td><a href="#" class="btn btn-danger status-button">Editar</a></td>
                             </tr>
-                            <tr>
-                                <td>Marcos kaique</td>
-                                <td>MarquitoVaiCorinthians@gmail.com</td>
-                                <td><a href="#" class="btn btn-warning">Editar</td>
-                                <td><a href="#" class="btn btn-danger">Excluir</td>
-                            </tr>
-                             -->
                         </tbody>
                     </table>
                 </div>
