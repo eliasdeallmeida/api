@@ -16,89 +16,34 @@ import lombok.Getter;
 
 public class Armario {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private Long id;
+    private int tipo_armario;
+    private int numero_armario;
 
-	@Column(name = "tipoArmario")
-	private int tipoArmario;
+    private Boolean ativo;
 
-	@Column(name = "numeroArmario")
-	private int numeroArmario;
+    public Armario() {
+    }
 
-	@Column(name = "numeroJanela")
-	private int numeroJanela;
+    public Armario(int tipo, int numero) {
+        this.tipo_armario = tipo;
+        this.numero_armario = numero;
+        this.ativo = true;
+    }
 
-	@Column(name = "codigoArmario")
-	private String codigoArmario;
+    public int getTipo_armario() {
+        return tipo_armario;
+    }
 
-	private boolean ocupado;
-	private boolean ativo;
+    public int getNumero_armario() {
+        return numero_armario;
+    }
 
-	public Armario() {
-	}
+    public Boolean getAtivo() {
+        return ativo;
+    }
 
-	public Armario(int tipo, int numeroArmario, int numeroJanela) {
-		this.tipoArmario = tipo;
-		this.numeroArmario = numeroArmario;
-		this.numeroJanela = numeroJanela;
-		this.codigoArmario = gerandoCodigo(tipo, numeroArmario, numeroJanela);
-		this.ativo = true;
-		this.ocupado = false;
-	}
-
-	public String gerandoCodigo(int tipo, int numero, int janela) {
-		String charTipo = "" + tipo;
-		String charJanela;
-		String charNumero;
-
-		if (janela > 0 && janela < 10) {
-			charJanela = "0" + janela;
-		} else {
-			charJanela = "" + janela;
-		}
-
-		if (numero > 0 && numero < 10) {
-			charNumero = "00" + numero;
-		} else if (numero > 9 && numero < 100) {
-			charNumero = "0" + numero;
-		} else {
-			charNumero = "" + numero;
-		}
-
-		return charTipo + charNumero + charJanela;
-	}
-
-	public void excluir() {
-		this.ativo = false;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public int getTipoArmario() {
-		return tipoArmario;
-	}
-
-	public int getNumeroArmario() {
-		return numeroArmario;
-	}
-
-	public int getNumeroJanela() {
-		return numeroJanela;
-	}
-
-	public String getCodigoArmario() {
-		return codigoArmario;
-	}
-
-	public boolean isOcupado() {
-		return ocupado;
-	}
-
-	public boolean isAtivo() {
-		return ativo;
-	}
 }

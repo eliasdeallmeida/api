@@ -13,43 +13,49 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lms.api.janela.Janela;
+import com.lms.api.janela.JanelaRepository;
 import com.lms.api.armario.Armario;
 import com.lms.api.armario.ArmarioRepository;
-import com.lms.api.armario.DadosCadastroArmario;
-import com.lms.api.armario.DadosListagemArmarios;
+import com.lms.api.janela.DadosCadastroJanela;
+import com.lms.api.janela.DadosListagemJanelas;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/armarios")
-public class ArmarioController {
+@RequestMapping("/janelas")
+public class JanelaController {
 
 	@Autowired
-	private ArmarioRepository repository;
+	private JanelaRepository repository;
+
+	@Autowired
+	private ArmarioRepository armarioRepository;
 
 	@PostMapping
 	@Transactional
-	public void cadastrar(@RequestBody @Valid DadosCadastroArmario dados) {
+	public void cadastrar(@RequestBody DadosCadastroJanela dados) {
 
-		for (int i = 1; i <= dados.quantidadeArmario(); i++) {
-			for (int j = 1; j <= dados.numeroJanela(); j++) {
-				repository.save(new Armario(dados.tipoArmario(), i, j));
+		for (int i = 1; i <= dados.quantidade_armario(); i++) {
+			for (int j = 1; j <= dados.numero_janela(); j++) {
+				repository.save(new Janela(dados.tipo_armario(), i, j));
 			}
+			armarioRepository.save(new Armario(dados.tipo_armario(), i));
 		}
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<DadosListagemArmarios>> listar(
+	public ResponseEntity<Page<DadosListagemJanelas>> listar(
 			@PageableDefault(size = 10, sort = { "id" }) Pageable paginacao) {
-		var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemArmarios::new);
+		var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemJanelas::new);
 		return ResponseEntity.ok(page);
 	}
 
 	@GetMapping("{id}")
 	public ResponseEntity detalharArmario(@PathVariable Long id) {
 		var armario = repository.getReferenceById(id);
-		return ResponseEntity.ok(new DadosListagemArmarios(armario));
+		return ResponseEntity.ok(new DadosListagemJanelas(armario));
 	}
 
 	@DeleteMapping("{id}")

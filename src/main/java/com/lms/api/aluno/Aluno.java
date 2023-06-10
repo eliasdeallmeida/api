@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Table(name = "alunos")
-@Entity(name = "Aluno")
+@Entity(name = "/Aluno")
 @Getter
 @EqualsAndHashCode(of = "id")
 public class Aluno {
@@ -20,7 +20,6 @@ public class Aluno {
 	private String email;
 	private String nome;
 	private String matricula;
-	private int codigoArmario;
 	private boolean ativo;
 
 	public Aluno() {
@@ -29,9 +28,8 @@ public class Aluno {
 	public Aluno(DadosCadastroAluno dados) {
 		this.ativo = true;
 		this.nome = dados.nome();
-			this.email = dados.email();
+		this.email = dados.email();
 		this.matricula = dados.matricula();
-		this.codigoArmario = dados.codigoArmario();
 	}
 
 	public Long getId() {
@@ -48,10 +46,6 @@ public class Aluno {
 
 	public String getMatricula() {
 		return this.matricula;
-	}
-
-	public int getCodigoArmario() {
-		return this.codigoArmario;
 	}
 
 	public void excluir() {

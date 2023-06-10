@@ -20,14 +20,12 @@ public class Admin {
 	private Long id;
 	private String nome;
 	private String email;
-	private String senha;
 	private boolean ativo;
 
 	public Admin(DadosCadastroAdmin dados) {
 		this.ativo = true;
 		this.nome = dados.nome();
 		this.email = dados.email();
-		this.senha = dados.senha();
 	}
 
 	public Long getId() {
@@ -50,10 +48,6 @@ public class Admin {
 
 	public void excluir() {
 		this.ativo = false;
-	}
-
-	public String getSenha() {
-		return senha;
 	}
 
 	public boolean isAtivo() {
