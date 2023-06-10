@@ -1,34 +1,3 @@
-// package com.lms.api.controller;
-
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.PutMapping;
-
-// import java.util.*;
-// import com.lms.api.admin.AdminRepository;
-// import com.lms.api.admin.DadosAtualizacaoAdmin;
-// import com.lms.api.admin.DadosCadastroAdmin;
-
-// import jakarta.transaction.Transactional;
-// import jakarta.validation.Valid;
-
-// @Controller
-// public class ArmarioController {
-
-
-
-// 	@GetMapping("/gerenciar-armarios")
-// 	public String index(Model model) {
-// 		return "armarios/index";
-// 	}
-	
-	
-// }
-
 package com.lms.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.lms.api.armario.Armario;
 import com.lms.api.armario.ArmarioRepository;
@@ -61,7 +31,7 @@ public class ArmarioController {
 
 	@PostMapping
 	@Transactional
-	public void cadastrar(@RequestBody DadosCadastroArmario dados) {
+	public void cadastrar(@RequestBody @Valid DadosCadastroArmario dados) {
 
 		for (int i = 1; i <= dados.quantidadeArmario(); i++) {
 			for (int j = 1; j <= dados.numeroJanela(); j++) {
@@ -69,6 +39,13 @@ public class ArmarioController {
 			}
 		}
 	}
+
+	 @GetMapping("/gerenciar-armarios")
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("armarios/index");
+        return modelAndView;
+    }
 
 	@GetMapping
 	public ResponseEntity<Page<DadosListagemArmarios>> listar(
