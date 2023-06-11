@@ -21,6 +21,8 @@ import com.lms.api.admin.DadosAtualizacaoAdmin;
 import com.lms.api.admin.DadosCadastroAdmin;
 import com.lms.api.admin.DadosDetalhesAdmin;
 import com.lms.api.admin.DadosListagemAdmin;
+import com.lms.api.usuario.Usuario;
+import com.lms.api.usuario.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -32,11 +34,16 @@ public class AdminController {
 	@Autowired
 	private AdminRepository repository;
 
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+
 	@PostMapping
 	@Transactional
-	public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroAdmin dados, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity cadastrar(@RequestBody DadosCadastroAdmin dados, UriComponentsBuilder uriBuilder) {
 		var admin = new Admin(dados);
 		repository.save(admin);
+		usuarioRepository.save(new Usuario(dados.nome(), "$2a$12$/4qcygumAheeyp1X15mWkuOVeHiDWJtgmqIXmNmiXi3tLGCAKdu6e"));
+
 		var uri = uriBuilder.path("/admins/{id}").buildAndExpand(admin.getId()).toUri();
 		return ResponseEntity.created(uri).body(new DadosListagemAdmin(admin));
 	}
