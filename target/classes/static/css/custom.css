@@ -15,3 +15,13 @@
     max-width: 200px; /* Defina o tamanho desejado para o campo de pesquisa */
 }
 
+#info {
+  margin-left: 50px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 15px;
+}
+
+#informacoes {
+  position: relative;
+}
