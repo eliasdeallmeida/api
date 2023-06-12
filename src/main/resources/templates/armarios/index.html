@@ -38,6 +38,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <h6 class="m-0 font-weight-bold text-primary">Lista de armários</h6>
+                        <a href="#" class="btn btn-primary" style="margin-left: 10px;">Adicionar Armários</a>
                     </div>
                     <div class="col-md-6">
                         <form class="form-inline float-right">
@@ -56,38 +57,59 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Armario</th>
-                                <th>Aluno</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <!-- <tr>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                            </tr> -->
-                        </tfoot>
-                        <tbody>
-                            <tr>
-                                <td>0000232</td>
-                                <td>Vazio</td>
-                                <td><a href="#"  class="btn status-button btn-success" data-status="livre">livre</a></td>
-                                <td><a href="#" class="btn btn-danger status-button">Editar</a></td>
-                            </tr>
-                            <tr>
-                                <td>11199999</td>
-                                <td>Rai</td>
-                                <td><a href="#"  class="btn status-button btn-success" data-status="livre">livre</a></td>
-                                <td><a href="#" class="btn btn-danger status-button">Editar</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th onclick="mostrarTabelaArmarios()">Armário</th>
+                        <th><a href="#" class="btn btn-danger status-button excluir-btn" >Excluir</a></th>
+                      </tr>
+                      <tr>
+                        <th onclick="mostrarTabelaArmarios()">Armário 2</th>
+                        <th><a href="#" class="btn btn-danger status-button excluir-btn">Excluir</a></th>
+                      </tr>
+                    </thead>
+                    <tfoot>
+                      <!-- <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      </tr> -->
+                    </tfoot>
+                    <tbody>
+                    </tbody>
+                  </table>
                 </div>
+              
+                <div id="tabelaArmarios" style="display: none;">
+                  <h5>Tabela de outros armários:</h5>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Número</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Armário 1</td>
+                        <td>Disponível</td>
+                        <th><button class="btn btn-primary" style="margin-left: 60px;" onclick="mostrarInformacoes()" id="info">Ver informações</button></th>
+                        <th><a href="aluno/add" class="btn btn-primary" style="margin-right: 20px;">Adicionar</a></th>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                </div>
+              
+                <div id="informacoes" style="display: none;">
+                  <h4>Informações sobre o armário</h4>
+                  <p>Tipo:</p>
+                  <p>Número:</p>
+                  <p>Número janela:</p>
+                  <p>Status:</p>
+                  <p>Aluno:</p>
+                </div>
+              </div>
             </div>
         </div>
 

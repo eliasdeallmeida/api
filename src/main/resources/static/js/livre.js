@@ -39,3 +39,42 @@ $(document).ready(function() {
         }
     }
 });
+
+function mostrarInformacoes() {
+  var informacoes = document.getElementById("informacoes");
+  if (informacoes.style.display === "none") {
+      informacoes.style.display = "block";
+  } else {
+      informacoes.style.display = "none";
+  }
+}
+
+function mostrarTabelaArmarios() {
+  var tabelaArmarios = document.getElementById("tabelaArmarios");
+  if (tabelaArmarios.style.display === "none") {
+    tabelaArmarios.style.display = "block";
+  } else {
+    tabelaArmarios.style.display = "none";
+  }
+}
+
+/* const excluirBtn = document.getElementById('excluir-btn');
+const tabelaArmarios = document.getElementById('dataTable');
+const tabelaVinculada = document.getElementById('tabelaArmarios');
+
+excluirBtn.addEventListener('click', () => {
+  tabelaArmarios.remove();
+  tabelaVinculada.remove();
+  });
+
+*/
+
+const excluirBtns = document.querySelectorAll('.excluir-btn');
+
+  excluirBtns.forEach((btn) => {
+    btn.addEventListener('click', (event) => {
+      const row = event.target.closest('tr');
+      row.remove();
+    });
+  });
+
