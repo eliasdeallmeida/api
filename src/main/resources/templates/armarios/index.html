@@ -11,7 +11,7 @@
                 <div class="col-md-6">
                     <div class="d-flex align-items-center">
                         <h6 class="m-0 font-weight-bold text-primary">Lista de armários</h6>
-                        <a href="#" class="btn btn-primary ml-3">Adicionar Armários</a>
+                        <a href="add" class="btn btn-primary ml-3">Adicionar Armários</a>
                     </div>
                 </div>
                 <div class="col-md-6 text-right">
@@ -33,11 +33,11 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th onclick="mostrarTabelaArmarios()">Armários tipo 1</th>
+                            <th onclick="mostrarTabelaArmarios()">Armário 1</th>
                             <th><a href="#" class="btn btn-danger status-button excluir-btn">Excluir</a></th>
                         </tr>
                         <tr>
-                            <th onclick="mostrarTabelaArmarios()">Armários tipo 2</th>
+                            <th onclick="mostrarTabelaArmarios()">Armário 2</th>
                             <th><a href="#" class="btn btn-danger status-button excluir-btn">Excluir</a></th>
                         </tr>
                     </thead>
@@ -54,11 +54,11 @@
             </div>
 
             <div id="tabelaArmarios" style="display: none;">
-                <h5>Tabela de outros armários:</h5>
+                <h5>Tabela de Janelas:</h5>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Número</th>
+                            <th>Indentificação</th>
                             <th>Status</th>
                             <th></th>
                             <th></th>
@@ -66,11 +66,25 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>codigoArmario</td>
+                            <td>100101</td>
                             <td>Disponível</td>
                             <td><button class="btn btn-primary" style="margin-left: 60px;" onclick="mostrarInformacoes()" id="info">Ver informações</button></td>
-                            <td><a href="/alunos/add" class="btn btn-primary">Adicionar</a></td>
+                            <td><a href="/alunos/add" class="btn btn-primary">Adicionar aluno</a></td>
                         </tr>
+                        <tr>
+                            <td>100102</td>
+                            <td>Disponível</td>
+                            <td><button class="btn btn-primary" style="margin-left: 60px;" onclick="mostrarInformacoes()" id="info">Ver informações</button></td>
+                            <td><a href="/alunos/add" class="btn btn-primary">Adicionar aluno</a></td>
+                        </tr>
+                        <tr>
+                            <td>100103</td>
+                            <td>Disponível</td>
+                            <td><button class="btn btn-primary" style="margin-left: 60px;" onclick="mostrarInformacoes()" id="info">Ver informações</button></td>
+                            <td><a href="/alunos/add" class="btn btn-primary">Adicionar aluno</a></td>
+                        </tr>
+                        
+                        
                     </tbody>
                 </table>
             </div>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.lms.api.admin.DadosListagemAdmin;
 import com.lms.api.aluno.Aluno;
@@ -34,6 +35,12 @@ public class AlunoController {
 		repository.save(new Aluno(dados));
 	}
 
+	@GetMapping("/add")
+    public ModelAndView index() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("aluno/add");
+        return modelAndView;
+    }
 	@GetMapping
 	public Page<DadosListagemAluno> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
 		// return repository.findAll(paginacao).map(DadosListagemAluno::new);

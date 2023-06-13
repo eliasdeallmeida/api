@@ -47,6 +47,13 @@ public class ArmarioController {
         return modelAndView;
     }
 
+	 @GetMapping("/add")
+    public ModelAndView add() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("armarios/add");
+        return modelAndView;
+    }
+
 	@GetMapping
 	public ResponseEntity<Page<DadosListagemArmarios>> listar(
 			@PageableDefault(size = 10, sort = { "id" }) Pageable paginacao) {

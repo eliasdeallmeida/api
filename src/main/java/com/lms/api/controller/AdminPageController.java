@@ -30,6 +30,8 @@ public class AdminPageController {
 		return "admins/index";
 	}
 
+
+	
 	@GetMapping("/admins/add")
 	public String add() {
 		return "/admins/add";
