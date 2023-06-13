@@ -42,7 +42,7 @@ form {
     margin-top: 40px;
     position: relative;
     border-radius: 30px;
-    box-shadow: 0 0 7px 0 green;
+    color: white;
 }
 
 .buttonsForm span {
@@ -58,7 +58,7 @@ form {
     position: absolute;
     width: 108px;
     height: 100%;
-    background: linear-gradient(to right, #33E754, #5EF012);
+    background-color: #4e73df;
     border-radius: 30px;
     transition: .3s;
 }
@@ -73,7 +73,7 @@ input[type="email"], input[type="password"] {
 }
 
 #login-button {
-    background: green;
+    background: #4e73df;
     color: white;
     border-radius: 30px;
     width: 100%;
