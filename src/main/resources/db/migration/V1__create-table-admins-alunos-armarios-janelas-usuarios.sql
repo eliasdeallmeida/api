@@ -2,6 +2,7 @@ create table admins (
 	id bigint not null auto_increment,
 	nome varchar(50) not null,
 	email varchar(50),
+	senha varchar(255),
 	ativo tinyint,
 	primary key(id)
 );
@@ -38,3 +39,5 @@ create table usuarios(
     senha varchar(255) not null,
     primary key(id)
 );
+
+insert into usuarios(login,senha) values("admin","$2a$12$JAF8WBZwIbvbrLnpsRnwX.xq/PI1tn6cM9CBgV7cWMRh413muoiUW");
