@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lms.api.armario.Armario;
-import com.lms.api.armario.ArmarioRepository;
-import com.lms.api.armario.DadosCadastroArmario;
-import com.lms.api.armario.DadosListagemArmarios;
+import com.lms.api.dto.DadosCadastroArmario;
+import com.lms.api.dto.DadosListagemArmarios;
+import com.lms.api.model.armario.Armario;
+import com.lms.api.model.armario.ArmarioRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.lms.api.admin.Admin;
-import com.lms.api.admin.AdminRepository;
-import com.lms.api.usuario.DadosAutenticacao;
+import com.lms.api.dto.DadosAutenticacao;
+import com.lms.api.model.admin.Admin;
+import com.lms.api.model.admin.AdminRepository;
 
 import jakarta.transaction.Transactional;
 

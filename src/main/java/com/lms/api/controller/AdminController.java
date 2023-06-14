@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lms.api.admin.Admin;
-import com.lms.api.admin.AdminRepository;
-import com.lms.api.admin.DadosAtualizacaoAdmin;
-import com.lms.api.admin.DadosCadastroAdmin;
-import com.lms.api.admin.DadosListagemAdmin;
+import com.lms.api.dto.DadosAtualizacaoAdmin;
+import com.lms.api.dto.DadosCadastroAdmin;
+import com.lms.api.dto.DadosListagemAdmin;
+import com.lms.api.model.admin.Admin;
+import com.lms.api.model.admin.AdminRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

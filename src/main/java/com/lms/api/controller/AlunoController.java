@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lms.api.admin.DadosListagemAdmin;
-import com.lms.api.aluno.Aluno;
-import com.lms.api.aluno.AlunoRepository;
-import com.lms.api.aluno.DadosCadastroAluno;
-import com.lms.api.aluno.DadosListagemAluno;
+import com.lms.api.model.aluno.Aluno;
+import com.lms.api.model.aluno.AlunoRepository;
+import com.lms.api.dto.DadosCadastroAluno;
+import com.lms.api.dto.DadosListagemAdmin;
+import com.lms.api.dto.DadosListagemAluno;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
