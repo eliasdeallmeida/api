@@ -1,6 +1,10 @@
 package com.lms.api.admin;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -28,18 +32,6 @@ public class Admin {
 		this.email = dados.email();
 	}
 
-	public Long getId() {
-		return this.id;
-	}
-
-	public String getNome() {
-		return this.nome;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
 	public void atualizarInformacoes(@Valid DadosAtualizacaoAdmin dados) {
 		if (dados.email() != null) {
 			this.email = dados.email();
@@ -49,12 +41,4 @@ public class Admin {
 	public void excluir() {
 		this.ativo = false;
 	}
-
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	// @Enumerated(EnumType.STRING) : para classe enum
-	// @Embedded : para classe endereço (Obs: dentro da classe deve ser adicionada
-	// as anotações @Embeddable, @Getter, @NoArgsConstructor, @AllArgsConstructor)
 }

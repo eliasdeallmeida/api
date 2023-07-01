@@ -5,12 +5,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Table(name = "alunos")
-@Entity(name = "/Aluno")
+@Entity(name = "Aluno")
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Aluno {
 
@@ -22,9 +26,6 @@ public class Aluno {
 	private String matricula;
 	private boolean ativo;
 
-	public Aluno() {
-	}
-
 	public Aluno(DadosCadastroAluno dados) {
 		this.ativo = true;
 		this.nome = dados.nome();
@@ -32,27 +33,7 @@ public class Aluno {
 		this.matricula = dados.matricula();
 	}
 
-	public Long getId() {
-		return this.id;
-	}
-
-	public String getNome() {
-		return this.nome;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public String getMatricula() {
-		return this.matricula;
-	}
-
 	public void excluir() {
 		this.ativo = false;
-	}
-
-	public boolean isAtivo() {
-		return ativo;
 	}
 }
