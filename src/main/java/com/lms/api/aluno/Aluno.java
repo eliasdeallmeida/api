@@ -24,39 +24,15 @@ public class Aluno {
 	private String email;
 	private String nome;
 	private String matricula;
-	private int codigoArmario;
 	private boolean ativo;
-	
-	public Aluno() {}
-	
+
 	public Aluno(DadosCadastroAluno dados) {
 		this.ativo = true;
 		this.nome = dados.nome();
 		this.email = dados.email();
 		this.matricula = dados.matricula();
-		this.codigoArmario = dados.codigoArmario();
 	}
-	
-	public Long getId() {
-		return this.id;
-	}
-	
-	public String getNome() {
-		return this.nome;
-	}
-	
-	public String getEmail() {
-		return this.email;
-	}
-	
-	public String getMatricula() {
-		return this.matricula;
-	}
-	
-	public int getCodigoArmario() {
-		return this.codigoArmario;
-	}
-	
+
 	public void excluir() {
 		this.ativo = false;
 	}
