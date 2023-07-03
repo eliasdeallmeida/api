@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lms.api.infra.security.DadosTokenJWT;
-import com.lms.api.infra.security.TokenService;
-import com.lms.api.usuario.DadosAutenticacao;
-import com.lms.api.usuario.Usuario;
+import com.lms.api.dto.DadosAutenticacao;
+import com.lms.api.dto.DadosTokenJWT;
+import com.lms.api.entity.Usuario;
+import com.lms.api.service.TokenService;
 
 import jakarta.validation.Valid;
 
@@ -21,15 +21,15 @@ import jakarta.validation.Valid;
 public class AutenticacaoController {
 
     @Autowired
-    private AuthenticationManager manager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     private TokenService tokenService;
     
     @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
+    public ResponseEntity<?> efetuarLogin(@RequestBody @Valid DadosAutenticacao dados) {
         var authenticationToken = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        var authentication = manager.authenticate(authenticationToken);
+        var authentication = authenticationManager.authenticate(authenticationToken);
         var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
         return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
     }

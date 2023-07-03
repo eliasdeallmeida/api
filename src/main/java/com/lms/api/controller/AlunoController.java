@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.lms.api.aluno.Aluno;
-import com.lms.api.aluno.AlunoRepository;
-import com.lms.api.aluno.DadosCadastroAluno;
-import com.lms.api.aluno.DadosDetalhesAluno;
-import com.lms.api.aluno.DadosListagemAluno;
+import com.lms.api.dto.DadosCadastroAluno;
+import com.lms.api.dto.DadosDetalhamentoAluno;
+import com.lms.api.dto.DadosListagemAluno;
+import com.lms.api.entity.Aluno;
+import com.lms.api.repository.AlunoRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -28,36 +28,34 @@ import jakarta.validation.Valid;
 public class AlunoController {
 
 	@Autowired
-	private AlunoRepository repository;
+	private AlunoRepository alunoRepository;
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroAluno dados, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroAluno dados, UriComponentsBuilder uriBuilder) {
 		var aluno = new Aluno(dados);
-		repository.save(aluno);
+		alunoRepository.save(aluno);
 		var uri = uriBuilder.path("/alunos/{id}").buildAndExpand(aluno.getId()).toUri();
-		return ResponseEntity.created(uri).body(new DadosListagemAluno(aluno));
+		return ResponseEntity.created(uri).body(new DadosDetalhamentoAluno(aluno));
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<DadosListagemAluno>> listar(
-			@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
-		var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
+	public ResponseEntity<Page<DadosListagemAluno>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+		var page = alunoRepository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
 		return ResponseEntity.ok(page);
-	}
-
-	@GetMapping("/{id}")
-	public ResponseEntity detalharAluno(@PathVariable Long id) {
-		var aluno = repository.getReferenceById(id);
-		return ResponseEntity.ok(new DadosDetalhesAluno(aluno));
 	}
 
 	@DeleteMapping("/{id}")
 	@Transactional
-	public ResponseEntity excluir(@PathVariable Long id) {
-		var aluno = repository.getReferenceById(id);
+	public ResponseEntity<?> excluir(@PathVariable Long id) {
+		var aluno = alunoRepository.getReferenceById(id);
 		aluno.excluir();
 		return ResponseEntity.noContent().build();
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<?> detalhar(@PathVariable Long id) {
+		var aluno = alunoRepository.getReferenceById(id);
+		return ResponseEntity.ok(new DadosDetalhamentoAluno(aluno));
+	}
 }
