@@ -29,11 +29,15 @@ public class Armario {
     @Column(name = "numero_armario")
     private int numeroArmario;
     
-    private Boolean ativo;
+    private boolean ativo;
 
-    public Armario(int tipo, int numero) {
-        this.tipoAmario = tipo;
-        this.numeroArmario = numero;
+    public Armario(int tipoArmario, int numeroArmario) {
+        this.tipoAmario = tipoArmario;
+        this.numeroArmario = numeroArmario;
         this.ativo = true;
     }
+
+    public void excluir() {
+		this.ativo = false;
+	}
 }

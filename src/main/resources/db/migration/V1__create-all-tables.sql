@@ -24,13 +24,17 @@ create table armarios(
 	primary key(id)
 );
 
-create table janelas(
+create table portas(
 	id bigint not null auto_increment,
-	numero_janela int not null,
-	codigo_janela varchar(6) not null,
+	numero_porta int not null,
+	chave_porta varchar(6) not null,
+	armario_id bigint not null,
+	aluno_id bigint unique,
 	ocupado tinyint not null,
 	ativo tinyint not null,
-	primary key(id)
+	primary key(id),
+	foreign key(armario_id) references armarios(id),
+	foreign key(aluno_id) references alunos(id)
 );
 
 create table usuarios(

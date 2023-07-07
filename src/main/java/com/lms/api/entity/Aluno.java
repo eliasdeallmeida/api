@@ -1,5 +1,6 @@
 package com.lms.api.entity;
 
+import com.lms.api.dto.DadosAtualizacaoAluno;
 import com.lms.api.dto.DadosCadastroAluno;
 
 import jakarta.persistence.Entity;
@@ -7,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,6 +35,18 @@ public class Aluno {
 		this.email = dados.email();
 		this.matricula = dados.matricula();
 		this.ativo = true;
+	}
+
+	public void atualizarInformacoes(@Valid DadosAtualizacaoAluno dados) {
+		if(dados.nome() != null) {
+			this.nome = dados.nome();
+		}
+		if(dados.email() != null) {
+			this.email = dados.email();
+		}
+		if(dados.matricula() != null) {
+			this.matricula = dados.matricula();
+		}
 	}
 
 	public void excluir() {

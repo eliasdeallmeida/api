@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.lms.api.dto.DadosAtualizacaoAluno;
 import com.lms.api.dto.DadosCadastroAluno;
 import com.lms.api.dto.DadosDetalhamentoAluno;
 import com.lms.api.dto.DadosListagemAluno;
@@ -43,6 +45,14 @@ public class AlunoController {
 	public ResponseEntity<Page<DadosListagemAluno>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
 		var page = alunoRepository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
 		return ResponseEntity.ok(page);
+	}
+
+	@PutMapping
+	@Transactional
+	public ResponseEntity<?> atualizar(@RequestBody @Valid DadosAtualizacaoAluno dados) {
+		var aluno = alunoRepository.getReferenceById(dados.id());
+		aluno.atualizarInformacoes(dados);
+		return ResponseEntity.ok(new DadosDetalhamentoAluno(aluno));
 	}
 
 	@DeleteMapping("/{id}")
