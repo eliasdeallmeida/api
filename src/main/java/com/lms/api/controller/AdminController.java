@@ -48,7 +48,7 @@ public class AdminController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<DadosListagemAdmin>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+	public ResponseEntity<Page<DadosListagemAdmin>> listar(@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
 		var page = adminRepository.findAllByAtivoTrue(paginacao).map(DadosListagemAdmin::new);
 		return ResponseEntity.ok(page);
 	}

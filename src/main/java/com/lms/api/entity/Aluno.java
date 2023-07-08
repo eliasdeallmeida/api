@@ -38,13 +38,13 @@ public class Aluno {
 	}
 
 	public void atualizarInformacoes(@Valid DadosAtualizacaoAluno dados) {
-		if(dados.nome() != null) {
+		if (dados.nome() != null) {
 			this.nome = dados.nome();
 		}
-		if(dados.email() != null) {
+		if (dados.email() != null) {
 			this.email = dados.email();
 		}
-		if(dados.matricula() != null) {
+		if (dados.matricula() != null) {
 			this.matricula = dados.matricula();
 		}
 	}

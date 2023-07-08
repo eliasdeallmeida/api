@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.lms.api.entity.Porta;
 
-public interface PortaArmarioRepository extends JpaRepository<Porta, Long>{
+public interface PortaRepository extends JpaRepository<Porta, Long>{
     Page<Porta> findAllByAtivoTrue(Pageable paginacao);
     List<Porta> findAllByArmarioIdAndAtivoTrue(Long armarioId);
     List<Porta> findAllByArmarioId(Long armarioId);

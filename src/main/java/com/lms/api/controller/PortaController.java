@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lms.api.dto.DadosAtualizacaoPorta;
 import com.lms.api.dto.DadosDetalhamentoPorta;
-import com.lms.api.dto.DadosListagemPortaArmario;
-import com.lms.api.entity.Aluno;
+import com.lms.api.dto.DadosListagemPorta;
 import com.lms.api.repository.AlunoRepository;
-import com.lms.api.repository.PortaArmarioRepository;
+import com.lms.api.repository.PortaRepository;
 
 import jakarta.validation.Valid;
 
@@ -26,14 +25,14 @@ import jakarta.validation.Valid;
 public class PortaController {
 
     @Autowired
-    PortaArmarioRepository portaRepository;
+    PortaRepository portaRepository;
 
     @Autowired
     AlunoRepository alunoRepository;
 
     @GetMapping("/armario/{armarioId}")
 	public ResponseEntity<?> listar(@PathVariable Long armarioId) {
-        List<DadosListagemPortaArmario> portas = portaRepository.findAllByArmarioIdAndAtivoTrue(armarioId).stream().map(DadosListagemPortaArmario::new).toList();
+        List<DadosListagemPorta> portas = portaRepository.findAllByArmarioIdAndAtivoTrue(armarioId).stream().map(DadosListagemPorta::new).toList();
         return ResponseEntity.ok(portas);
     }
 
@@ -49,12 +48,8 @@ public class PortaController {
     @Transactional
     public ResponseEntity<?> atualizar(@RequestBody @Valid DadosAtualizacaoPorta dados) {
         var porta = portaRepository.getReferenceById(dados.id());
-        Aluno aluno = null;
-        if(dados.alunoId() != null) {
-            aluno = alunoRepository.getReferenceById(dados.alunoId());
-        }
-        //porta.atualizarInformacoes(dados);
-        porta.atualizarAluno(aluno);
+        var aluno = dados.alunoId() != null ? alunoRepository.getReferenceById(dados.alunoId()) : null;
+        porta.atualizarInformacoes(aluno);
         return ResponseEntity.ok(new DadosDetalhamentoPorta(porta));
     }
 

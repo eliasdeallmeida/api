@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,6 @@ import com.lms.api.dto.DadosListagemAluno;
 import com.lms.api.entity.Aluno;
 import com.lms.api.repository.AlunoRepository;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController

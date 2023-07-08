@@ -24,20 +24,20 @@ public class Armario {
     private Long id;
 
     @Column(name = "tipo_armario")
-    private int tipoAmario;
+    private int tipoArmario;
 
     @Column(name = "numero_armario")
     private int numeroArmario;
-    
+
     private boolean ativo;
 
     public Armario(int tipoArmario, int numeroArmario) {
-        this.tipoAmario = tipoArmario;
+        this.tipoArmario = tipoArmario;
         this.numeroArmario = numeroArmario;
         this.ativo = true;
     }
 
     public void excluir() {
-		this.ativo = false;
-	}
+        this.ativo = false;
+    }
 }

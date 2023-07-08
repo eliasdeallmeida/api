@@ -4,7 +4,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lms.api.dto.DadosAtualizacaoAluno;
 import com.lms.api.dto.DadosAtualizacaoPorta;
 
 import jakarta.persistence.Column;
@@ -22,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "Porta")
 @Table(name = "portas")
@@ -47,8 +47,8 @@ public class Porta {
 	@JsonIgnore
 	private Armario armario;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "aluno_id")
+	@OneToOne(fetch = FetchType.EAGER, optional = true)
+	@JoinColumn(name = "aluno_id", nullable = true)
 	@JsonIgnore
 	private Aluno aluno;
 
@@ -68,15 +68,15 @@ public class Porta {
 		String charJanela;
 		String charNumero;
 
-		if(janela > 0 && janela < 10) {
+		if (janela > 0 && janela < 10) {
 			charJanela = "0" + janela;
 		} else {
 			charJanela = "" + janela;
 		}
 
-		if(numero > 0 && numero < 10) {
+		if (numero > 0 && numero < 10) {
 			charNumero = "00" + numero;
-		} else if(numero > 9 && numero < 100) {
+		} else if (numero > 9 && numero < 100) {
 			charNumero = "0" + numero;
 		} else {
 			charNumero = "" + numero;
@@ -86,13 +86,18 @@ public class Porta {
 	}
 
 	// public void atualizarInformacoes(@Valid DadosAtualizacaoPorta dados) {
-	// 	this.aluno = dados.aluno();
-	// 	this.ocupado = ((dados.aluno() != null) ? true : false);
+	// this.aluno = dados.aluno();
+	// this.ocupado = ((dados.aluno() != null) ? true : false);
 	// }
 
-	public void atualizarAluno(Aluno aluno) {
-		this.aluno = aluno;
-		this.ocupado = ((aluno != null) ? true : false);
+	public void atualizarInformacoes(Aluno aluno) {
+		if (aluno != null) {
+			this.aluno = new Aluno(aluno.getId(), aluno.getNome(), aluno.getEmail(), aluno.getMatricula(), aluno.isAtivo());
+			this.ocupado = true;
+		} else {
+			this.aluno = null;
+			this.ocupado = false;
+		}
 	}
 
 	public void excluir() {
