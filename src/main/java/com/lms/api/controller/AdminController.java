@@ -31,47 +31,47 @@ import jakarta.validation.Valid;
 @RequestMapping("/admins")
 public class AdminController {
 
-	@Autowired
-	private AdminRepository adminRepository;
+    @Autowired
+    private AdminRepository adminRepository;
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-	@PostMapping
-	@Transactional
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroAdmin dados, UriComponentsBuilder uriBuilder) {
-		var admin = new Admin(dados);
-		adminRepository.save(admin);
-		usuarioRepository.save(new Usuario(dados.nome(), "$2a$12$/4qcygumAheeyp1X15mWkuOVeHiDWJtgmqIXmNmiXi3tLGCAKdu6e"));
-		var uri = uriBuilder.path("/admins/{id}").buildAndExpand(admin.getId()).toUri();
-		return ResponseEntity.created(uri).body(new DadosDetalhamentoAdmin(admin));
-	}
+    @PostMapping
+    @Transactional
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroAdmin dados, UriComponentsBuilder uriBuilder) {
+        var admin = new Admin(dados);
+        adminRepository.save(admin);
+        usuarioRepository.save(new Usuario(dados.nome(), "$2a$12$/4qcygumAheeyp1X15mWkuOVeHiDWJtgmqIXmNmiXi3tLGCAKdu6e"));
+        var uri = uriBuilder.path("/admins/{id}").buildAndExpand(admin.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoAdmin(admin));
+    }
 
-	@GetMapping
-	public ResponseEntity<Page<DadosListagemAdmin>> listar(@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
-		var page = adminRepository.findAllByAtivoTrue(paginacao).map(DadosListagemAdmin::new);
-		return ResponseEntity.ok(page);
-	}
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemAdmin>> listar(@PageableDefault(size = 10, sort = { "nome" }) Pageable paginacao) {
+        var page = adminRepository.findAllByAtivoTrue(paginacao).map(DadosListagemAdmin::new);
+        return ResponseEntity.ok(page);
+    }
 
-	@PutMapping
-	@Transactional
-	public ResponseEntity<?> atualizar(@RequestBody @Valid DadosAtualizacaoAdmin dados) {
-		var admin = adminRepository.getReferenceById(dados.id());
-		admin.atualizarInformacoes(dados);
-		return ResponseEntity.ok(new DadosDetalhamentoAdmin(admin));
-	}
+    @PutMapping
+    @Transactional
+    public ResponseEntity<?> atualizar(@RequestBody @Valid DadosAtualizacaoAdmin dados) {
+        var admin = adminRepository.getReferenceById(dados.id());
+        admin.atualizarInformacoes(dados);
+        return ResponseEntity.ok(new DadosDetalhamentoAdmin(admin));
+    }
 
-	@DeleteMapping("/{id}")
-	@Transactional
-	public ResponseEntity<?> excluir(@PathVariable Long id) {
-		var admin = adminRepository.getReferenceById(id);
-		admin.excluir();
-		return ResponseEntity.noContent().build();
-	}
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> excluir(@PathVariable Long id) {
+        var admin = adminRepository.getReferenceById(id);
+        admin.excluir();
+        return ResponseEntity.noContent().build();
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<?> detalhar(@PathVariable Long id) {
-		var admin = adminRepository.getReferenceById(id);
-		return ResponseEntity.ok(new DadosDetalhamentoAdmin(admin));
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<?> detalhar(@PathVariable Long id) {
+        var admin = adminRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoAdmin(admin));
+    }
 }

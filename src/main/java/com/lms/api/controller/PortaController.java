@@ -31,7 +31,7 @@ public class PortaController {
     AlunoRepository alunoRepository;
 
     @GetMapping("/armario/{armarioId}")
-	public ResponseEntity<?> listar(@PathVariable Long armarioId) {
+    public ResponseEntity<?> listar(@PathVariable Long armarioId) {
         List<DadosListagemPorta> portas = portaRepository.findAllByArmarioIdAndAtivoTrue(armarioId).stream().map(DadosListagemPorta::new).toList();
         return ResponseEntity.ok(portas);
     }
@@ -54,8 +54,8 @@ public class PortaController {
     }
 
     @GetMapping("/{numeroPorta}/armario/{armarioId}")
-	public ResponseEntity<?> detalhar(@PathVariable("numeroPorta") int numeroPorta, @PathVariable("armarioId") Long armarioId) {
-		var porta = portaRepository.getReferenceByNumeroPortaAndArmarioId(numeroPorta, armarioId);
-		return ResponseEntity.ok(new DadosDetalhamentoPorta(porta));
-	}
+    public ResponseEntity<?> detalhar(@PathVariable("numeroPorta") int numeroPorta, @PathVariable("armarioId") Long armarioId) {
+        var porta = portaRepository.getReferenceByNumeroPortaAndArmarioId(numeroPorta, armarioId);
+        return ResponseEntity.ok(new DadosDetalhamentoPorta(porta));
+    }
 }

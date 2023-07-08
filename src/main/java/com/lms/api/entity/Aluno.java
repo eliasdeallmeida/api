@@ -22,34 +22,34 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 public class Aluno {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
-	private String email;
-	private String matricula;
-	private boolean ativo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+    private String email;
+    private String matricula;
+    private boolean ativo;
 
-	public Aluno(DadosCadastroAluno dados) {
-		this.nome = dados.nome();
-		this.email = dados.email();
-		this.matricula = dados.matricula();
-		this.ativo = true;
-	}
+    public Aluno(DadosCadastroAluno dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.matricula = dados.matricula();
+        this.ativo = true;
+    }
 
-	public void atualizarInformacoes(@Valid DadosAtualizacaoAluno dados) {
-		if (dados.nome() != null) {
-			this.nome = dados.nome();
-		}
-		if (dados.email() != null) {
-			this.email = dados.email();
-		}
-		if (dados.matricula() != null) {
-			this.matricula = dados.matricula();
-		}
-	}
+    public void atualizarInformacoes(@Valid DadosAtualizacaoAluno dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.email() != null) {
+            this.email = dados.email();
+        }
+        if (dados.matricula() != null) {
+            this.matricula = dados.matricula();
+        }
+    }
 
-	public void excluir() {
-		this.ativo = false;
-	}
+    public void excluir() {
+        this.ativo = false;
+    }
 }

@@ -8,5 +8,5 @@ import com.lms.api.entity.Aluno;
 
 
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
-	Page<Aluno> findAllByAtivoTrue(Pageable paginacao);
+    Page<Aluno> findAllByAtivoTrue(Pageable paginacao);
 }

@@ -22,28 +22,28 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 public class Admin {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
-	private String email;
-	private String senha;
-	private boolean ativo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+    private String email;
+    private String senha;
+    private boolean ativo;
 
-	public Admin(DadosCadastroAdmin dados) {
-		this.nome = dados.nome();
-		this.email = dados.email();
-		this.senha = dados.senha();
-		this.ativo = true;
-	}
+    public Admin(DadosCadastroAdmin dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.senha = dados.senha();
+        this.ativo = true;
+    }
 
-	public void atualizarInformacoes(@Valid DadosAtualizacaoAdmin dados) {
-		if (dados.email() != null) {
-			this.email = dados.email();
-		}
-	}
+    public void atualizarInformacoes(@Valid DadosAtualizacaoAdmin dados) {
+        if (dados.email() != null) {
+            this.email = dados.email();
+        }
+    }
 
-	public void excluir() {
-		this.ativo = false;
-	}
+    public void excluir() {
+        this.ativo = false;
+    }
 }

@@ -31,76 +31,58 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 public class Porta {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(name = "numero_porta")
-	private int numeroPorta;
+    @Column(name = "numero_porta")
+    private int numeroPorta;
 
-	@Column(name = "chave_porta")
-	private String chavePorta;
+    @Column(name = "chave_porta")
+    private String chavePorta;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "armario_id", nullable = false)
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JsonIgnore
-	private Armario armario;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "armario_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Armario armario;
 
-	@OneToOne(fetch = FetchType.EAGER, optional = true)
-	@JoinColumn(name = "aluno_id", nullable = true)
-	@JsonIgnore
-	private Aluno aluno;
+    @OneToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "aluno_id", nullable = true)
+    @JsonIgnore
+    private Aluno aluno;
 
-	private boolean ocupado;
-	private boolean ativo;
+    private boolean ocupado;
+    private boolean ativo;
 
-	public Porta(int tipo, int numeroArmario, int numeroPorta, Armario armario) {
-		this.numeroPorta = numeroPorta;
-		this.armario = armario;
-		this.chavePorta = gerandoCodigo(tipo, numeroArmario, numeroPorta);
-		this.ocupado = false;
-		this.ativo = true;
-	}
+    public Porta(int tipo, int numeroArmario, int numeroPorta, Armario armario) {
+        this.numeroPorta = numeroPorta;
+        this.armario = armario;
+        this.chavePorta = gerarNumeracao(tipo, numeroArmario, numeroPorta);
+        this.ocupado = false;
+        this.ativo = true;
+    }
 
-	public String gerandoCodigo(int tipo, int numero, int janela) {
-		String charTipo = "" + tipo;
-		String charJanela;
-		String charNumero;
+    public String gerarNumeracao(int tipo, int numeroArmario, int numeroPorta) {
+        return Integer.toString(100000 * tipo + 100 * numeroArmario + numeroPorta);
+    }
 
-		if (janela > 0 && janela < 10) {
-			charJanela = "0" + janela;
-		} else {
-			charJanela = "" + janela;
-		}
+    // public void atualizarInformacoes(@Valid DadosAtualizacaoPorta dados) {
+    // this.aluno = dados.aluno();
+    // this.ocupado = ((dados.aluno() != null) ? true : false);
+    // }
 
-		if (numero > 0 && numero < 10) {
-			charNumero = "00" + numero;
-		} else if (numero > 9 && numero < 100) {
-			charNumero = "0" + numero;
-		} else {
-			charNumero = "" + numero;
-		}
+    public void atualizarInformacoes(Aluno aluno) {
+        if (aluno != null) {
+            this.aluno = new Aluno(aluno.getId(), aluno.getNome(), aluno.getEmail(), aluno.getMatricula(), aluno.isAtivo());
+            this.ocupado = true;
+        } else {
+            this.aluno = null;
+            this.ocupado = false;
+        }
+    }
 
-		return charTipo + charNumero + charJanela;
-	}
-
-	// public void atualizarInformacoes(@Valid DadosAtualizacaoPorta dados) {
-	// this.aluno = dados.aluno();
-	// this.ocupado = ((dados.aluno() != null) ? true : false);
-	// }
-
-	public void atualizarInformacoes(Aluno aluno) {
-		if (aluno != null) {
-			this.aluno = new Aluno(aluno.getId(), aluno.getNome(), aluno.getEmail(), aluno.getMatricula(), aluno.isAtivo());
-			this.ocupado = true;
-		} else {
-			this.aluno = null;
-			this.ocupado = false;
-		}
-	}
-
-	public void excluir() {
-		this.ativo = false;
-	}
+    public void excluir() {
+        this.ativo = false;
+    }
 }

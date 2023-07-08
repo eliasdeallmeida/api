@@ -29,43 +29,43 @@ import jakarta.validation.Valid;
 @RequestMapping("/alunos")
 public class AlunoController {
 
-	@Autowired
-	private AlunoRepository alunoRepository;
+    @Autowired
+    private AlunoRepository alunoRepository;
 
-	@PostMapping
-	@Transactional
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroAluno dados, UriComponentsBuilder uriBuilder) {
-		var aluno = new Aluno(dados);
-		alunoRepository.save(aluno);
-		var uri = uriBuilder.path("/alunos/{id}").buildAndExpand(aluno.getId()).toUri();
-		return ResponseEntity.created(uri).body(new DadosDetalhamentoAluno(aluno));
-	}
+    @PostMapping
+    @Transactional
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroAluno dados, UriComponentsBuilder uriBuilder) {
+        var aluno = new Aluno(dados);
+        alunoRepository.save(aluno);
+        var uri = uriBuilder.path("/alunos/{id}").buildAndExpand(aluno.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoAluno(aluno));
+    }
 
-	@GetMapping
-	public ResponseEntity<Page<DadosListagemAluno>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-		var page = alunoRepository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
-		return ResponseEntity.ok(page);
-	}
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemAluno>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        var page = alunoRepository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
+        return ResponseEntity.ok(page);
+    }
 
-	@PutMapping
-	@Transactional
-	public ResponseEntity<?> atualizar(@RequestBody @Valid DadosAtualizacaoAluno dados) {
-		var aluno = alunoRepository.getReferenceById(dados.id());
-		aluno.atualizarInformacoes(dados);
-		return ResponseEntity.ok(new DadosDetalhamentoAluno(aluno));
-	}
+    @PutMapping
+    @Transactional
+    public ResponseEntity<?> atualizar(@RequestBody @Valid DadosAtualizacaoAluno dados) {
+        var aluno = alunoRepository.getReferenceById(dados.id());
+        aluno.atualizarInformacoes(dados);
+        return ResponseEntity.ok(new DadosDetalhamentoAluno(aluno));
+    }
 
-	@DeleteMapping("/{id}")
-	@Transactional
-	public ResponseEntity<?> excluir(@PathVariable Long id) {
-		var aluno = alunoRepository.getReferenceById(id);
-		aluno.excluir();
-		return ResponseEntity.noContent().build();
-	}
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> excluir(@PathVariable Long id) {
+        var aluno = alunoRepository.getReferenceById(id);
+        aluno.excluir();
+        return ResponseEntity.noContent().build();
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<?> detalhar(@PathVariable Long id) {
-		var aluno = alunoRepository.getReferenceById(id);
-		return ResponseEntity.ok(new DadosDetalhamentoAluno(aluno));
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<?> detalhar(@PathVariable Long id) {
+        var aluno = alunoRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoAluno(aluno));
+    }
 }

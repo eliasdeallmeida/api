@@ -31,67 +31,67 @@ import jakarta.validation.Valid;
 @RequestMapping("/armarios")
 public class ArmarioController {
 
-	@Autowired
-	private ArmarioRepository armarioRepository;
+    @Autowired
+    private ArmarioRepository armarioRepository;
 
-	@Autowired
-	private PortaRepository portaRepository;
+    @Autowired
+    private PortaRepository portaRepository;
 
-	// @PostMapping
-	// @Transactional
-	// public void cadastrar(@RequestBody @Valid DadosCadastroArmario dados) {
-	// 	var ultimoArmario = armarioRepository.findTopByOrderByIdDesc();
-	// 	int ultimo = ultimoArmario == null ? 0 : ultimoArmario.getNumeroArmario();
-	// 	for(int numeroArmario = ultimo + 1; numeroArmario <= ultimo + dados.quantidadeArmario(); numeroArmario++) {
-	// 		armarioRepository.save(new Armario(dados.tipoArmario(), numeroArmario));
-	// 		for(int numeroPorta = 1; numeroPorta <= dados.quantidadePorta(); numeroPorta++) {
-	// 			Armario armario = armarioRepository.findByNumeroArmario(numeroArmario);
-	// 			portaRepository.save(new Porta(dados.tipoArmario(), numeroArmario, numeroPorta, armario));
-	// 		}
-	// 	}
-	// }
+    // @PostMapping
+    // @Transactional
+    // public void cadastrar(@RequestBody @Valid DadosCadastroArmario dados) {
+    //     var ultimoArmario = armarioRepository.findTopByOrderByIdDesc();
+    //     int ultimo = ultimoArmario == null ? 0 : ultimoArmario.getNumeroArmario();
+    //     for(int numeroArmario = ultimo + 1; numeroArmario <= ultimo + dados.quantidadeArmario(); numeroArmario++) {
+    //         armarioRepository.save(new Armario(dados.tipoArmario(), numeroArmario));
+    //         for(int numeroPorta = 1; numeroPorta <= dados.quantidadePorta(); numeroPorta++) {
+    //             Armario armario = armarioRepository.findByNumeroArmario(numeroArmario);
+    //             portaRepository.save(new Porta(dados.tipoArmario(), numeroArmario, numeroPorta, armario));
+    //         }
+    //     }
+    // }
 
-	@PostMapping
-	@Transactional
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroArmario dados) {
-		var ultimoArmario = armarioRepository.findTopByOrderByIdDesc();
-		int ultimo = ultimoArmario == null ? 0 : ultimoArmario.getNumeroArmario();
-		List<Object> lista = new ArrayList<>();
-		for(int numeroArmario = ultimo + 1; numeroArmario <= ultimo + dados.quantidadeArmario(); numeroArmario++) {
-			var armario = new Armario(dados.tipoArmario(), numeroArmario);
-			armarioRepository.save(armario);
-			lista.add(armario);
-			for(int numeroPorta = 1; numeroPorta <= dados.quantidadePorta(); numeroPorta++) {
-				armario = armarioRepository.findByNumeroArmario(numeroArmario);
-				var porta = new Porta(dados.tipoArmario(), numeroArmario, numeroPorta, armario);
-				portaRepository.save(porta);
-				lista.add(porta);
-			}
-		}
-		return ResponseEntity.ok(lista);
-	}
+    @PostMapping
+    @Transactional
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosCadastroArmario dados) {
+        var ultimoArmario = armarioRepository.findTopByOrderByIdDesc();
+        int ultimo = ultimoArmario == null ? 0 : ultimoArmario.getNumeroArmario();
+        List<Object> lista = new ArrayList<>();
+        for(int numeroArmario = ultimo + 1; numeroArmario <= ultimo + dados.quantidadeArmario(); numeroArmario++) {
+            var armario = new Armario(dados.tipoArmario(), numeroArmario);
+            armarioRepository.save(armario);
+            lista.add(armario);
+            for(int numeroPorta = 1; numeroPorta <= dados.quantidadePorta(); numeroPorta++) {
+                armario = armarioRepository.findByNumeroArmario(numeroArmario);
+                var porta = new Porta(dados.tipoArmario(), numeroArmario, numeroPorta, armario);
+                portaRepository.save(porta);
+                lista.add(porta);
+            }
+        }
+        return ResponseEntity.ok(lista);
+    }
 
-	@GetMapping
-	public ResponseEntity<Page<DadosListagemArmario>> listar(@PageableDefault(size = 10, sort = {"numeroArmario"}) Pageable paginacao) {
-		var page = armarioRepository.findAllByAtivoTrue(paginacao).map(DadosListagemArmario::new);
-		return ResponseEntity.ok(page);
-	}
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemArmario>> listar(@PageableDefault(size = 10, sort = {"numeroArmario"}) Pageable paginacao) {
+        var page = armarioRepository.findAllByAtivoTrue(paginacao).map(DadosListagemArmario::new);
+        return ResponseEntity.ok(page);
+    }
 
-	@DeleteMapping("/{id}")
-	@Transactional
-	public ResponseEntity<?> excluir(@PathVariable Long id) {
-		var armario = armarioRepository.getReferenceById(id);
-		List<Porta> portas = portaRepository.findAllByArmarioId(id).stream().toList();
-		armario.excluir();
-		for(Porta porta : portas) {
-			porta.excluir();
-		}
-		return ResponseEntity.noContent().build();
-	}
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> excluir(@PathVariable Long id) {
+        var armario = armarioRepository.getReferenceById(id);
+        List<Porta> portas = portaRepository.findAllByArmarioId(id).stream().toList();
+        armario.excluir();
+        for(Porta porta : portas) {
+            porta.excluir();
+        }
+        return ResponseEntity.noContent().build();
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<?> detalhar(@PathVariable Long id) {
-		var armario = armarioRepository.getReferenceById(id);
-		return ResponseEntity.ok(new DadosDetalhamentoArmario(armario));
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<?> detalhar(@PathVariable Long id) {
+        var armario = armarioRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoArmario(armario));
+    }
 }
