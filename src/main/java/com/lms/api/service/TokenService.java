@@ -24,7 +24,7 @@ public class TokenService {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.create()
                 .withIssuer("API Locker Management System")
-                .withSubject(usuario.getLogin())
+                .withSubject(usuario.getNome())
                 .withClaim("id", usuario.getId())
                 .withExpiresAt(dataExpiracao())
                 .sign((Algorithm) algoritmo);

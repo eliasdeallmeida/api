@@ -7,11 +7,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.lms.api.dto.DadosAtualizacaoUsuario;
+import com.lms.api.dto.DadosCadastroUsuario;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,12 +32,31 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login;
+    private String nome;
+    private String email;
     private String senha;
+    private boolean ativo;
 
-    public Usuario(String login, String senha) {
-        this.login = login;
+    public Usuario(DadosCadastroUsuario dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.senha = dados.senha();
+        this.ativo = true;
+    }
+
+    public Usuario(String nome, String senha) {
+        this.nome = nome;
         this.senha = senha;
+    }
+
+    public void atualizarInformacoes(@Valid DadosAtualizacaoUsuario dados) {
+        if (dados.email() != null) {
+            this.email = dados.email();
+        }
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 
     @Override
@@ -54,7 +77,7 @@ public class Usuario implements UserDetails {
     public String getUsername() {
         // throw new UnsupportedOperationException("Unimplemented method
         // 'getUsername'");
-        return login;
+        return nome;
     }
 
     @Override
